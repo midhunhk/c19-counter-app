@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="padding">16dp</dimen>
+    <dimen name="item_vertical_space">8dp</dimen>
+
+    <dimen name="text_size_title">20sp</dimen>
+    <dimen name="text_size_subtitle">18sp</dimen>
+</resources>
