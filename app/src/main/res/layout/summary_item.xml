@@ -4,7 +4,7 @@
     android:id="@+id/summaryCountry"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/item_vertical_space"
+    android:layout_marginBottom="@dimen/item_vertical_space"
     android:background="@color/purple_dark"
     android:padding="@dimen/padding">
 
