@@ -11,6 +11,7 @@
     <string name="str_today">Today</string>
     <string name="str_total">Total</string>
     <string name="str_blank">30000</string>
+    <string name="str_about">About</string>
 
 
 </resources>
