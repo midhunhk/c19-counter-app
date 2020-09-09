@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">C19 Counter</string>
 
-    <string name="str_updating">Updating</string>
+    <string name="str_updating">Fetching Status…</string>
     <string name="str_last_updated">Last updated at: %1$s</string>
     <string name="str_country_india">India</string>
 

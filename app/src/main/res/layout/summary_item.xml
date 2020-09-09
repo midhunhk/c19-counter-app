@@ -66,7 +66,7 @@
                 android:gravity="center"
                 android:text="@string/str_today"
                 android:textColor="@color/off_white"
-                android:textSize="@dimen/text_size_subtitle"
+                android:textSize="@dimen/text_size_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -78,7 +78,7 @@
                 android:gravity="center"
                 android:text="@string/str_blank"
                 android:textColor="@color/off_white"
-                android:textSize="@dimen/text_size_subtitle"
+                android:textSize="@dimen/text_size_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/labelToday" />
@@ -91,7 +91,7 @@
                 android:gravity="center"
                 android:text="@string/str_total"
                 android:textColor="@color/off_white"
-                android:textSize="@dimen/text_size_subtitle"
+                android:textSize="@dimen/text_size_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textConfirmedToday" />
@@ -103,7 +103,7 @@
                 android:gravity="center"
                 android:text="@string/str_blank"
                 android:textColor="@color/off_white"
-                android:textSize="@dimen/text_size_subtitle"
+                android:textSize="@dimen/text_size_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/labelTotal" />
@@ -153,7 +153,7 @@
                 android:gravity="center"
                 android:text="@string/str_today"
                 android:textColor="@color/off_white"
-                android:textSize="@dimen/text_size_subtitle"
+                android:textSize="@dimen/text_size_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -165,7 +165,7 @@
                 android:gravity="center"
                 android:text="@string/str_blank"
                 android:textColor="@color/off_white"
-                android:textSize="@dimen/text_size_subtitle"
+                android:textSize="@dimen/text_size_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/labelRecoveredToday" />
@@ -178,7 +178,7 @@
                 android:gravity="center"
                 android:text="@string/str_total"
                 android:textColor="@color/off_white"
-                android:textSize="@dimen/text_size_subtitle"
+                android:textSize="@dimen/text_size_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textRecoveredToday" />
@@ -190,7 +190,7 @@
                 android:gravity="center"
                 android:text="@string/str_blank"
                 android:textColor="@color/off_white"
-                android:textSize="@dimen/text_size_subtitle"
+                android:textSize="@dimen/text_size_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/labelRecoveredTotal" />
@@ -238,7 +238,7 @@
                 android:gravity="center"
                 android:text="@string/str_today"
                 android:textColor="@color/off_white"
-                android:textSize="@dimen/text_size_subtitle"
+                android:textSize="@dimen/text_size_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -250,7 +250,7 @@
                 android:gravity="center"
                 android:text="@string/str_blank"
                 android:textColor="@color/off_white"
-                android:textSize="@dimen/text_size_subtitle"
+                android:textSize="@dimen/text_size_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/labelDeceasedToday" />
@@ -263,7 +263,7 @@
                 android:gravity="center"
                 android:text="@string/str_total"
                 android:textColor="@color/off_white"
-                android:textSize="@dimen/text_size_subtitle"
+                android:textSize="@dimen/text_size_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textDeceasedToday" />
@@ -275,7 +275,7 @@
                 android:gravity="center"
                 android:text="@string/str_blank"
                 android:textColor="@color/off_white"
-                android:textSize="@dimen/text_size_subtitle"
+                android:textSize="@dimen/text_size_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/labelDeceasedTotal" />

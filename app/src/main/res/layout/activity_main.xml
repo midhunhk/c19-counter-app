@@ -24,19 +24,12 @@
             android:textSize="@dimen/text_size_title"
             android:textStyle="bold" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:padding="@dimen/padding"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/app_icon" />
-
         <TextView
             android:id="@+id/textUpdatedAt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:padding="@dimen/padding_small"
             android:text="@string/str_updating"
             android:textColor="@color/off_white" />
 
@@ -57,6 +50,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
+            tools:listitem="@layout/summary_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="vertical" />
