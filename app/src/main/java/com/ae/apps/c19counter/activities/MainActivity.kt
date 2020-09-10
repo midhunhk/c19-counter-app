@@ -90,9 +90,10 @@ class MainActivity : AppCompatActivity(), SummaryReader {
 
             // specify an viewAdapter (see also next example)
             adapter = viewAdapter
+
+            // Set the empty view
+            // setEmptyView(noResultsView)
         }
-        // Set the empty view
-        (recyclerView as EmptyRecyclerView).setEmptyView(noResultsView)
     }
 
     private fun setUpPullToRefresh() {
@@ -123,6 +124,7 @@ class MainActivity : AppCompatActivity(), SummaryReader {
             responseList[index] = summary
         }
         viewAdapter.setItems(responseList)
+        recyclerView.adapter = viewAdapter
     }
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -49,13 +50,17 @@
         android:layout_weight="1"
         android:layout_marginTop="@dimen/item_vertical_space">
 
+        <!--
         <TextView
             android:id="@+id/noResultsView"
             android:text="@string/str_no_results"
+            android:gravity="center_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <com.ae.apps.lib.custom.views.EmptyRecyclerView
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/padding_small"
+            app:drawableTopCompat="@drawable/app_icon" />
+-->
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
             tools:listitem="@layout/summary_item"
             android:layout_width="match_parent"
