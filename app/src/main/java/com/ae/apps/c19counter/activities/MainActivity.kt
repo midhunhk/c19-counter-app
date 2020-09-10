@@ -25,6 +25,7 @@ package com.ae.apps.c19counter.activities
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -92,13 +93,12 @@ class MainActivity : AppCompatActivity(), SummaryReader {
             adapter = viewAdapter
 
             // Set the empty view
-            // setEmptyView(noResultsView)
+            setEmptyView(noResultsView)
         }
     }
 
     private fun setUpPullToRefresh() {
         pullToRefresh.setOnRefreshListener {
-            // Toast.makeText(baseContext, "Not yet implemented", Toast.LENGTH_SHORT).show()
             refreshData()
             pullToRefresh.isRefreshing = false
         }

@@ -36,36 +36,47 @@
 
         <ProgressBar
             android:id="@+id/progressbar"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:visibility="invisible"
-            style="?android:attr/progressBarStyleHorizontal" />
+            android:visibility="invisible" />
     </LinearLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/pullToRefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="@dimen/unit_m">
+        android:layout_marginTop="@dimen/unit_s"
+        android:layout_marginBottom="@dimen/unit_s"
+        android:layout_weight="1">
 
-        <!--
-        <TextView
-            android:id="@+id/noResultsView"
-            android:text="@string/str_no_results"
-            android:gravity="center_horizontal"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/padding_small"
-            app:drawableTopCompat="@drawable/app_icon" />
--->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
-            tools:listitem="@layout/summary_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical" />
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/noResultsView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/unit_s"
+                android:gravity="center_horizontal"
+                android:text="@string/str_no_results"
+                android:visibility="visible"
+                app:drawableTopCompat="@drawable/app_icon" />
+
+            <com.ae.apps.lib.custom.views.EmptyRecyclerView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/unit_m"
+                android:paddingBottom="@dimen/unit_m"
+                android:scrollbars="vertical"
+                android:visibility="gone"
+                tools:listitem="@layout/summary_item" />
+
+        </FrameLayout>
+
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -73,12 +84,13 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/grey_dark">
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAbout"
-            android:text="@string/str_about"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/str_about" />
     </FrameLayout>
 
 </LinearLayout>
