@@ -4,9 +4,9 @@
     android:id="@+id/summaryCountry"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/item_vertical_space"
+    android:layout_marginBottom="@dimen/unit_m"
     android:background="@color/purple_dark"
-    android:padding="@dimen/padding">
+    android:padding="@dimen/unit_l">
 
     <TextView
         android:id="@+id/textCountryOrState"
@@ -19,13 +19,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageFlag"
+    <TextView
+        android:id="@+id/textLastUpdated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/flag_in"
-        android:visibility="gone"
+        android:text="@string/str_country_india"
+        android:textColor="@color/off_white"
+        android:textSize="@dimen/text_size_subtitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,12 +34,12 @@
         android:id="@+id/confirmedCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding"
+        android:layout_marginTop="@dimen/unit_l"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_card_style"
         android:orientation="vertical"
-        android:paddingTop="@dimen/padding"
-        android:paddingBottom="@dimen/padding"
+        android:paddingTop="@dimen/unit_l"
+        android:paddingBottom="@dimen/unit_l"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/recoveredCard"
         app:layout_constraintHorizontal_weight=".3"
@@ -126,8 +126,8 @@
         android:background="@drawable/rounded_card_style"
         android:backgroundTint="@color/blue_dark"
         android:orientation="vertical"
-        android:paddingTop="@dimen/padding"
-        android:paddingBottom="@dimen/padding"
+        android:paddingTop="@dimen/unit_l"
+        android:paddingBottom="@dimen/unit_l"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/deceasedCard"
         app:layout_constraintHorizontal_weight=".3"
@@ -212,8 +212,8 @@
         android:background="@drawable/rounded_card_style"
         android:backgroundTint="@color/red_dark"
         android:orientation="vertical"
-        android:paddingTop="@dimen/padding"
-        android:paddingBottom="@dimen/padding"
+        android:paddingTop="@dimen/unit_l"
+        android:paddingBottom="@dimen/unit_l"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight=".3"

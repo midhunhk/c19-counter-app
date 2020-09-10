@@ -28,6 +28,7 @@ class SummaryListAdapter(var data: List<Summary>) :
     override fun onBindViewHolder(holder: SummaryViewHolder, position: Int) {
         val summaryItem = data[position]
         holder.placeCode.text = summaryItem.code
+        holder.updatedAt.text = summaryItem.updatedAt
         holder.confirmedToday.text = NUMBER_FORMAT.format(summaryItem.todayCount.confirmed)
         holder.confirmedTotal.text = NUMBER_FORMAT.format(summaryItem.totalCount.confirmed)
         holder.recoveredToday.text = NUMBER_FORMAT.format(summaryItem.todayCount.recovered)
@@ -46,6 +47,7 @@ class SummaryListAdapter(var data: List<Summary>) :
 
     class SummaryViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
         val placeCode = view.textCountryOrState!!
+        val updatedAt = view.textLastUpdated!!
         val confirmedToday = view.textConfirmedToday!!
         val confirmedTotal = view.textConfirmedTotal!!
         val recoveredToday = view.textRecoveredToday!!

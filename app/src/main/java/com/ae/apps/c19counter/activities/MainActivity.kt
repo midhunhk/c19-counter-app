@@ -106,6 +106,7 @@ class MainActivity : AppCompatActivity(), SummaryReader {
 
     private fun refreshData() {
         progressbar.visibility = View.VISIBLE
+        textUpdatedAt.text = getString(R.string.str_updating)
         summaryCounter.retrieveSummary(requestList, this)
     }
 
@@ -115,7 +116,7 @@ class MainActivity : AppCompatActivity(), SummaryReader {
     }
 
     private fun updateResponseList(summary: Summary) {
-        textUpdatedAt.text = resources.getString(R.string.str_last_updated, summary.updatedAt)
+        textUpdatedAt.text = getString(R.string.str_updated)
         val existingItems = responseList.filter { it.code == summary.code }
         if (existingItems.isEmpty()) {
             responseList.add(summary)

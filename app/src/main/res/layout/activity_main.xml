@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@color/purple_dark"
         android:orientation="vertical"
-        android:padding="@dimen/padding">
+        android:paddingTop="@dimen/unit_l">
 
         <TextView
             android:layout_width="match_parent"
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="@dimen/padding_small"
+            android:padding="@dimen/unit_s"
             android:text="@string/str_updating"
             android:textColor="@color/off_white" />
 
@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="@dimen/item_vertical_space">
+        android:layout_marginTop="@dimen/unit_m">
 
         <!--
         <TextView
