@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/pink_light"
     android:orientation="vertical"
     tools:context=".activities.MainActivity">
 
@@ -72,7 +72,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/blue_light">
+        android:background="@color/grey_dark">
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAbout"
             android:text="@string/str_about"
