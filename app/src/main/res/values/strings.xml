@@ -11,7 +11,8 @@
     <string name="str_today">Today</string>
     <string name="str_total">Total</string>
     <string name="str_blank">30000</string>
+    <string name="str_no_results">No Results</string>
     <string name="str_about">About</string>
-
+    <string name="str_about_message">C19 Counter Beta, Data sourced from Third Party and not guaranteed to be accurate.</string>
 
 </resources>

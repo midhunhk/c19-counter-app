@@ -1,7 +1,31 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2020 Midhun Harikumar
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package com.ae.apps.c19counter.activities
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +35,7 @@ import com.ae.apps.c19counter.data.business.SummaryCounter
 import com.ae.apps.c19counter.data.business.SummaryReader
 import com.ae.apps.c19counter.data.models.Summary
 import com.ae.apps.c19counter.data.models.SummaryType
+import com.ae.apps.lib.custom.views.EmptyRecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), SummaryReader {
@@ -34,10 +59,21 @@ class MainActivity : AppCompatActivity(), SummaryReader {
         setContentView(R.layout.activity_main)
 
         setUpRecyclerView()
-
         setUpPullToRefresh()
+        setUpUI()
 
+        // Make the webservice call to fetch the data initially
         refreshData()
+    }
+
+    private fun setUpUI() {
+        btnAbout.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle(R.string.str_about)
+                .setMessage(R.string.str_about_message)
+                .setNeutralButton(android.R.string.ok) { dialog, _ -> dialog.dismiss() }
+                .show()
+        }
     }
 
     private fun setUpRecyclerView() {
@@ -55,6 +91,8 @@ class MainActivity : AppCompatActivity(), SummaryReader {
             // specify an viewAdapter (see also next example)
             adapter = viewAdapter
         }
+        // Set the empty view
+        (recyclerView as EmptyRecyclerView).setEmptyView(noResultsView)
     }
 
     private fun setUpPullToRefresh() {
