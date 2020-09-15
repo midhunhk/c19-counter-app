@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pink_light"
+    android:background="@color/color_almost_white"
     android:orientation="vertical"
     tools:context=".activities.MainActivity">
 
@@ -47,8 +47,8 @@
         android:id="@+id/pullToRefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/unit_s"
-        android:layout_marginBottom="@dimen/unit_s"
+        android:layout_marginTop="@dimen/unit_xs"
+        android:layout_marginBottom="@dimen/unit_xs"
         android:layout_weight="1">
 
         <FrameLayout
@@ -61,6 +61,8 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/unit_s"
                 android:gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black"
                 android:text="@string/str_no_results"
                 android:visibility="visible"
                 app:drawableTopCompat="@drawable/app_icon" />
