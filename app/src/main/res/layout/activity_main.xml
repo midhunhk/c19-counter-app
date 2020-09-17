@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".activities.MainActivity">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,22 +17,29 @@
         android:paddingTop="@dimen/unit_l">
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_title"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textUpdatedAt"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/unit_s"
             android:text="@string/str_updating"
-            android:textColor="@color/off_white" />
+            android:textColor="@color/off_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <ProgressBar
             android:id="@+id/progressbar"
@@ -40,8 +47,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:visibility="invisible" />
-    </LinearLayout>
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textUpdatedAt" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/pullToRefresh"
@@ -75,6 +86,7 @@
                 android:paddingBottom="@dimen/unit_m"
                 android:scrollbars="vertical"
                 android:visibility="gone"
+                android:layoutAnimation="@anim/layout_animation"
                 tools:listitem="@layout/summary_item" />
 
         </FrameLayout>

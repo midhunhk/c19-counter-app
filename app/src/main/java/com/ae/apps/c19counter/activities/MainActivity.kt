@@ -128,6 +128,7 @@ class MainActivity : AppCompatActivity(), SummaryReader {
         }
         viewAdapter.setItems(responseList)
         recyclerView.adapter = viewAdapter
+        recyclerView.scheduleLayoutAnimation()
     }
 
 }
