@@ -73,7 +73,9 @@ class MainActivity : AppCompatActivity(), SummaryReader {
                 .setTitle(R.string.str_about)
                 .setMessage(R.string.str_about_message)
                 .setNeutralButton(android.R.string.ok) { dialog, _ -> dialog.dismiss() }
-                .show()
+                //.show()
+            val aboutDialog = AboutDialog()
+            aboutDialog.show(supportFragmentManager, "ABOUT_FRAGMENT")
         }
     }
 
