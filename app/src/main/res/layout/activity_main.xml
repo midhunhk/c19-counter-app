@@ -94,17 +94,26 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/grey_dark">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/purple_dark">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAbout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginRight="@dimen/unit_m"
             android:text="@string/str_about" />
-    </FrameLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPrivacyPolicy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_privacy_policy" />
+    </LinearLayout>
 
 </LinearLayout>

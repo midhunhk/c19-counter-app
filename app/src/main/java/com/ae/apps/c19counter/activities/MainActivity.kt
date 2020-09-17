@@ -23,6 +23,8 @@
  */
 package com.ae.apps.c19counter.activities
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -36,6 +38,7 @@ import com.ae.apps.c19counter.data.business.SummaryCounter
 import com.ae.apps.c19counter.data.business.SummaryReader
 import com.ae.apps.c19counter.data.models.Summary
 import com.ae.apps.c19counter.data.models.SummaryType
+import com.ae.apps.lib.common.utils.DialogUtils
 import com.ae.apps.lib.custom.views.EmptyRecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -69,13 +72,13 @@ class MainActivity : AppCompatActivity(), SummaryReader {
 
     private fun setUpUI() {
         btnAbout.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setTitle(R.string.str_about)
-                .setMessage(R.string.str_about_message)
-                .setNeutralButton(android.R.string.ok) { dialog, _ -> dialog.dismiss() }
-                //.show()
-            val aboutDialog = AboutDialog()
-            aboutDialog.show(supportFragmentManager, "ABOUT_FRAGMENT")
+            DialogUtils.showCustomViewDialog(this, layoutInflater, R.layout.dialog_about, R.string.str_about)
+        }
+
+        btnPrivacyPolicy.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(getString(R.string.url_privacy_policy))
+            startActivity(intent)
         }
     }
 

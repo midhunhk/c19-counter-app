@@ -53,6 +53,7 @@ dependencies {
 
     // libAeApps
     implementation 'com.github.midhunhk.lib-aeapps:core:4.0.6'
+    implementation 'com.github.midhunhk.lib-aeapps:utilities:4.0.6'
     implementation 'com.github.ae-app-labs:lib-anko-async:0.10.8-rc.02'
 
     // Testing
