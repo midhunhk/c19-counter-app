@@ -62,7 +62,7 @@ class SummaryListAdapter(var data: List<Summary>) :
 
     override fun onBindViewHolder(holder: SummaryViewHolder, position: Int) {
         val summaryItem = data[position]
-        holder.placeCode.text = summaryItem.code
+        holder.placeCode.text = summaryItem.summaryCode.code
         holder.updatedAt.text = formatUpdatedAt(summaryItem.updatedAt)
         holder.confirmedToday.text = NUMBER_FORMAT.format(summaryItem.todayCount.confirmed)
         holder.confirmedTotal.text = NUMBER_FORMAT.format(summaryItem.totalCount.confirmed)

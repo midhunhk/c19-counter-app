@@ -16,18 +16,27 @@
         android:orientation="vertical"
         android:paddingTop="@dimen/unit_l">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/app_name"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_title"
-            android:textStyle="bold"
+            app:popupTheme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_title"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.Toolbar>
+
 
         <TextView
             android:id="@+id/textUpdatedAt"
@@ -39,7 +48,7 @@
             android:textColor="@color/off_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <ProgressBar
             android:id="@+id/progressbar"
@@ -70,11 +79,11 @@
                 android:id="@+id/noResultsView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:drawablePadding="@dimen/unit_s"
                 android:gravity="center_horizontal"
-                android:layout_gravity="center_vertical"
-                android:textColor="@color/black"
                 android:text="@string/str_no_results"
+                android:textColor="@color/black"
                 android:visibility="visible"
                 app:drawableTopCompat="@drawable/app_icon" />
 
@@ -82,38 +91,16 @@
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layoutAnimation="@anim/layout_animation"
                 android:paddingTop="@dimen/unit_m"
                 android:paddingBottom="@dimen/unit_m"
                 android:scrollbars="vertical"
                 android:visibility="gone"
-                android:layoutAnimation="@anim/layout_animation"
                 tools:listitem="@layout/summary_item" />
 
         </FrameLayout>
 
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:background="@color/purple_dark">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAbout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginRight="@dimen/unit_m"
-            android:text="@string/str_about" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnPrivacyPolicy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/str_privacy_policy" />
-    </LinearLayout>
 
 </LinearLayout>

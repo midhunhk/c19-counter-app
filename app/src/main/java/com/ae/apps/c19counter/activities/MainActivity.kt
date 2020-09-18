@@ -27,8 +27,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,10 +34,10 @@ import com.ae.apps.c19counter.R
 import com.ae.apps.c19counter.adapters.SummaryListAdapter
 import com.ae.apps.c19counter.data.business.SummaryCounter
 import com.ae.apps.c19counter.data.business.SummaryReader
+import com.ae.apps.c19counter.data.models.Code
 import com.ae.apps.c19counter.data.models.Summary
 import com.ae.apps.c19counter.data.models.SummaryType
 import com.ae.apps.lib.common.utils.DialogUtils
-import com.ae.apps.lib.custom.views.EmptyRecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), SummaryReader {
@@ -51,9 +49,9 @@ class MainActivity : AppCompatActivity(), SummaryReader {
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     // Create the initial list of items that need to be fetched
-    private val requestList = mutableListOf<Summary>(
-        Summary("IN", SummaryType.COUNTRY),
-        Summary("KL", SummaryType.STATE)
+    private val requestList = mutableListOf<Code>(
+        Code("IN", SummaryType.COUNTRY),
+        Code("KL", SummaryType.STATE)
     )
 
     private val responseList = mutableListOf<Summary>()
@@ -64,21 +62,31 @@ class MainActivity : AppCompatActivity(), SummaryReader {
 
         setUpRecyclerView()
         setUpPullToRefresh()
-        setUpUI()
+        setUpMenu()
 
         // Make the webservice call to fetch the data initially
         refreshData()
     }
 
-    private fun setUpUI() {
-        btnAbout.setOnClickListener {
-            DialogUtils.showCustomViewDialog(this, layoutInflater, R.layout.dialog_about, R.string.str_about)
-        }
-
-        btnPrivacyPolicy.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(getString(R.string.url_privacy_policy))
-            startActivity(intent)
+    private fun setUpMenu() {
+        toolbar.inflateMenu(R.menu.menu_main)
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menu_about -> {
+                    DialogUtils.showCustomViewDialog(
+                        this@MainActivity,
+                        layoutInflater,
+                        R.layout.dialog_about,
+                        R.string.str_about
+                    )
+                }
+                R.id.menu_privacy -> {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse(getString(R.string.url_privacy_policy))
+                    startActivity(intent)
+                }
+            }
+            true
         }
     }
 
@@ -122,7 +130,7 @@ class MainActivity : AppCompatActivity(), SummaryReader {
 
     private fun updateResponseList(summary: Summary) {
         textUpdatedAt.text = getString(R.string.str_updated)
-        val existingItems = responseList.filter { it.code == summary.code }
+        val existingItems = responseList.filter { it.summaryCode.code == summary.summaryCode.code }
         if (existingItems.isEmpty()) {
             responseList.add(summary)
         } else {

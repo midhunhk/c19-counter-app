@@ -10,5 +10,5 @@ interface SummaryReader {
     /**
      * Callback method when a summary is read
      */
-    public fun onSummaryRead(summary:Summary)
+    public fun onSummaryRead(summary: Summary)
 }

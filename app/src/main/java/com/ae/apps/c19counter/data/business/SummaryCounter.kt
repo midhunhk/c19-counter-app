@@ -25,6 +25,7 @@ package com.ae.apps.c19counter.data.business
 
 import com.ae.apps.c19counter.data.COUNTRY_SUMMARY_URL
 import com.ae.apps.c19counter.data.STATE_SUMMARY_URL
+import com.ae.apps.c19counter.data.models.Code
 import com.ae.apps.c19counter.data.models.Count
 import com.ae.apps.c19counter.data.models.Summary
 import com.ae.apps.c19counter.data.models.SummaryType
@@ -39,7 +40,7 @@ class SummaryCounter {
         fun getInstance() = SummaryCounter()
     }
 
-    fun retrieveSummary(sources: List<Summary>, caller: SummaryReader) {
+    fun retrieveSummary(sources: List<Code>, caller: SummaryReader) {
         val service = NetworkService.newInstance()
 
         doAsync {
@@ -64,7 +65,7 @@ class SummaryCounter {
         }
     }
 
-    private fun parseWebResponse(sourceSummary: Summary, json: JSONObject): Summary {
+    private fun parseWebResponse(summaryCode: Code, json: JSONObject): Summary {
         val updatedAt = json.getString("updatedAt")
         val todayCount = Count(
             json.getInt("confirmedToday"),
@@ -76,7 +77,7 @@ class SummaryCounter {
             json.getInt("recoveredTotal"),
             json.getInt("deceasedTotal")
         )
-        return Summary(sourceSummary.code, sourceSummary.type, updatedAt, todayCount, totalCount)
+        return Summary(summaryCode, updatedAt, todayCount, totalCount)
     }
 
 }
