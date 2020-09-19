@@ -22,48 +22,43 @@
  * SOFTWARE.
  */
 
-package com.ae.apps.c19counter.data.models
+package com.ae.apps.c19counter.data.repositories
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
+import android.app.Application
+import androidx.lifecycle.LiveData
+import com.ae.apps.c19counter.data.AppDatabase
+import com.ae.apps.c19counter.data.dao.CodeDao
+import com.ae.apps.c19counter.data.models.Code
+import org.jetbrains.anko.doAsync
 
-// Enums
-enum class SummaryType {
-    COUNTRY, STATE
-}
+class CodeRepository (application: Application) {
 
-// Data Classes
-@Entity
-data class Code(
-    @PrimaryKey
-    @ColumnInfo(name = "place_code") val code: String,
-    @ColumnInfo(name = "summary_type") val type: SummaryType,
-    @ColumnInfo(name = "name") val name: String? = ""
-)
+    private var codeDao:CodeDao
 
-data class Summary(
-    val summaryCode: Code,
-    val updatedAt: String = "",
-    val todayCount: Count = EMPTY_COUNT,
-    val totalCount: Count = EMPTY_COUNT
-)
+    private var allCodes :LiveData< List<Code>>
 
-data class Count(val confirmed: Int, val recovered: Int, val deceased: Int, val tested: Int = 0)
-
-// Null Objects
-val EMPTY_COUNT = Count(0, 0, 0)
-val CODE_INDIA = Code("IN", SummaryType.COUNTRY)
-
-class Converters {
-    @TypeConverter
-    fun fromSummaryString(summaryType:String) : SummaryType{
-        return SummaryType.valueOf(summaryType)
+    init {
+        val database = AppDatabase.getInstance(
+            application.applicationContext
+        )!!
+        codeDao = database.codeDao()
+        allCodes = codeDao.getAll()
     }
 
-    @TypeConverter
-    fun toSummaryString(summaryType: SummaryType) : String {
-        return summaryType.toString()
+    fun insertCode(code: Code) {
+        doAsync {
+            codeDao.insert(code)
+        }
     }
+
+    fun deleteCode(code: Code) {
+        doAsync {
+            codeDao.delete(code)
+        }
+    }
+
+    fun getAllCodes() = codeDao.getAll()
+
+    fun findCodeByValue(code:String) = codeDao.findByCode(code)
+
 }

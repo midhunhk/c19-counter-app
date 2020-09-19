@@ -22,48 +22,40 @@
  * SOFTWARE.
  */
 
-package com.ae.apps.c19counter.data.models
+package com.ae.apps.c19counter.data
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.ae.apps.c19counter.data.dao.CodeDao
+import com.ae.apps.c19counter.data.models.Code
+import com.ae.apps.c19counter.data.models.Converters
 
-// Enums
-enum class SummaryType {
-    COUNTRY, STATE
-}
+@Database(entities = [Code::class], version = 1)
+@TypeConverters(Converters::class)
+abstract class AppDatabase : RoomDatabase() {
 
-// Data Classes
-@Entity
-data class Code(
-    @PrimaryKey
-    @ColumnInfo(name = "place_code") val code: String,
-    @ColumnInfo(name = "summary_type") val type: SummaryType,
-    @ColumnInfo(name = "name") val name: String? = ""
-)
+    abstract fun codeDao(): CodeDao
 
-data class Summary(
-    val summaryCode: Code,
-    val updatedAt: String = "",
-    val todayCount: Count = EMPTY_COUNT,
-    val totalCount: Count = EMPTY_COUNT
-)
+    companion object {
+        private var instance: AppDatabase? = null
 
-data class Count(val confirmed: Int, val recovered: Int, val deceased: Int, val tested: Int = 0)
+        fun getInstance(context: Context): AppDatabase? {
+            if (null == instance) {
+                synchronized(AppDatabase::class.java) {
+                    instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        AppDatabase::class.java, "codes_database"
+                    )
+                        .fallbackToDestructiveMigration()
+                        .build()
+                }
+            }
+            return instance
+        }
 
-// Null Objects
-val EMPTY_COUNT = Count(0, 0, 0)
-val CODE_INDIA = Code("IN", SummaryType.COUNTRY)
-
-class Converters {
-    @TypeConverter
-    fun fromSummaryString(summaryType:String) : SummaryType{
-        return SummaryType.valueOf(summaryType)
     }
 
-    @TypeConverter
-    fun toSummaryString(summaryType: SummaryType) : String {
-        return summaryType.toString()
-    }
 }

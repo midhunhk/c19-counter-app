@@ -22,48 +22,27 @@
  * SOFTWARE.
  */
 
-package com.ae.apps.c19counter.data.models
+package com.ae.apps.c19counter.data.viemodel
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import com.ae.apps.c19counter.data.models.Code
+import com.ae.apps.c19counter.data.repositories.CodeRepository
 
-// Enums
-enum class SummaryType {
-    COUNTRY, STATE
-}
+class CodeViewModel(application: Application) : AndroidViewModel(application) {
 
-// Data Classes
-@Entity
-data class Code(
-    @PrimaryKey
-    @ColumnInfo(name = "place_code") val code: String,
-    @ColumnInfo(name = "summary_type") val type: SummaryType,
-    @ColumnInfo(name = "name") val name: String? = ""
-)
+    private var repository = CodeRepository(application)
+    private var allCodes: LiveData<List<Code>> = repository.getAllCodes()
 
-data class Summary(
-    val summaryCode: Code,
-    val updatedAt: String = "",
-    val todayCount: Count = EMPTY_COUNT,
-    val totalCount: Count = EMPTY_COUNT
-)
+    fun getPlaceCodes() = allCodes
 
-data class Count(val confirmed: Int, val recovered: Int, val deceased: Int, val tested: Int = 0)
-
-// Null Objects
-val EMPTY_COUNT = Count(0, 0, 0)
-val CODE_INDIA = Code("IN", SummaryType.COUNTRY)
-
-class Converters {
-    @TypeConverter
-    fun fromSummaryString(summaryType:String) : SummaryType{
-        return SummaryType.valueOf(summaryType)
+    fun insert(code: Code) {
+        repository.insertCode(code)
     }
 
-    @TypeConverter
-    fun toSummaryString(summaryType: SummaryType) : String {
-        return summaryType.toString()
+    fun delete(code: Code) {
+        repository.deleteCode(code)
     }
+
 }

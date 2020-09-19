@@ -27,16 +27,19 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ae.apps.c19counter.R
 import com.ae.apps.c19counter.adapters.SummaryListAdapter
 import com.ae.apps.c19counter.data.business.SummaryCounter
 import com.ae.apps.c19counter.data.business.SummaryReader
+import com.ae.apps.c19counter.data.models.CODE_INDIA
 import com.ae.apps.c19counter.data.models.Code
 import com.ae.apps.c19counter.data.models.Summary
-import com.ae.apps.c19counter.data.models.SummaryType
+import com.ae.apps.c19counter.data.viemodel.CodeViewModel
 import com.ae.apps.lib.common.utils.DialogUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -47,13 +50,9 @@ class MainActivity : AppCompatActivity(), SummaryReader {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: SummaryListAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
+    private val codeViewModel: CodeViewModel by viewModels()
 
-    // Create the initial list of items that need to be fetched
-    private val requestList = mutableListOf<Code>(
-        Code("IN", SummaryType.COUNTRY),
-        Code("KL", SummaryType.STATE)
-    )
-
+    private var placeCodesCache: List<Code>? = null
     private val responseList = mutableListOf<Summary>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,9 +62,18 @@ class MainActivity : AppCompatActivity(), SummaryReader {
         setUpRecyclerView()
         setUpPullToRefresh()
         setUpMenu()
+        initViewModel()
+    }
 
-        // Make the webservice call to fetch the data initially
-        refreshData()
+    private fun initViewModel() {
+        codeViewModel.delete(CODE_INDIA)
+        codeViewModel.getPlaceCodes().observe(this, {
+            placeCodes ->
+                run {
+                    refreshData(placeCodes)
+                    placeCodesCache = placeCodes
+                }
+        })
     }
 
     private fun setUpMenu() {
@@ -112,15 +120,19 @@ class MainActivity : AppCompatActivity(), SummaryReader {
 
     private fun setUpPullToRefresh() {
         pullToRefresh.setOnRefreshListener {
-            refreshData()
-            pullToRefresh.isRefreshing = false
+            if(null != placeCodesCache) {
+                refreshData(placeCodesCache!!)
+                pullToRefresh.isRefreshing = false
+            }
         }
     }
 
-    private fun refreshData() {
-        progressbar.visibility = View.VISIBLE
-        textUpdatedAt.text = getString(R.string.str_updating)
-        summaryCounter.retrieveSummary(requestList, this)
+    private fun refreshData(placeCodes:List<Code>) {
+        if(placeCodes.isNotEmpty()) {
+            progressbar.visibility = View.VISIBLE
+            textUpdatedAt.text = getString(R.string.str_updating)
+            summaryCounter.retrieveSummary(placeCodes, this)
+        }
     }
 
     override fun onSummaryRead(summary: Summary) {
