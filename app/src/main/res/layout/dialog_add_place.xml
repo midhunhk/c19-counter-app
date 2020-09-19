@@ -24,64 +24,96 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:padding="@dimen/unit_m"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:padding="@dimen/unit_m">
 
     <TextView
-        android:id="@+id/txtCountryPrompt"
-        android:layout_width="wrap_content"
+        android:id="@+id/txtAddPlaceTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/str_add_place_country"
+        android:gravity="center"
+        android:text="@string/str_add_place_title"
+        android:textColor="?attr/colorAccent"
+        android:textSize="@dimen/text_title2"
+        android:layout_margin="@dimen/unit_m"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/spinnerCountry"
+    <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/unit_l"
+        android:layout_marginBottom="@dimen/unit_l"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAddPlaceTitle">
+
+        <RadioButton
+            android:id="@+id/radioCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_add_place_country" />
+
+        <RadioButton
+            android:id="@+id/radioState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_add_place_state" />
+
+    </RadioGroup>
+
+
+    <Spinner
+        android:id="@+id/spinnerCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/unit_m"
+        android:background="@drawable/spinner_background"
+        android:backgroundTint="?attr/colorAccent"
         android:entries="@array/country_names_array"
+        android:spinnerMode="dropdown"
+        android:padding="@dimen/unit_m"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCountryPrompt"/>
-
-    <TextView
-        android:id="@+id/txtOr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/str_add_place_or"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerCountry" />
-
-    <TextView
-        android:id="@+id/txtStatePrompt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/str_add_place_state"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtOr" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"/>
 
     <Spinner
         android:id="@+id/spinnerState"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/country_names_array"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtStatePrompt"/>
-
-    <Button
-        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/str_add_place_add"
+        android:layout_marginTop="@dimen/unit_m"
+        android:background="@drawable/spinner_background"
+        android:backgroundTint="?attr/colorAccent"
+        android:padding="@dimen/unit_m"
+        android:entries="@array/india_states_names_array"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerState" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddPlace2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/unit_m"
+        android:text="@string/str_add_place_add"
+        android:layout_marginTop="@dimen/unit_m"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

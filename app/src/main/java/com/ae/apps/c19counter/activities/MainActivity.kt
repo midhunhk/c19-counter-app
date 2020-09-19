@@ -42,7 +42,7 @@ import com.ae.apps.c19counter.data.viemodel.CodeViewModel
 import com.ae.apps.lib.common.utils.DialogUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), SummaryReader {
+class MainActivity : AppCompatActivity(), SummaryReader, AddPlaceDialogCallback {
 
     private val summaryCounter: SummaryCounter by lazy { SummaryCounter.getInstance() }
 
@@ -68,13 +68,11 @@ class MainActivity : AppCompatActivity(), SummaryReader {
     private fun initUI(){
         addIcon.setOnClickListener {
             val dialog = AddPlaceDialog.getInstance()
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.show(dialog)
+            dialog.show(supportFragmentManager, "addPlace")
         }
     }
 
     private fun initViewModel() {
-        codeViewModel.delete(CODE_INDIA)
         codeViewModel.getPlaceCodes().observe(this, {
             placeCodes ->
                 run {
@@ -82,6 +80,11 @@ class MainActivity : AppCompatActivity(), SummaryReader {
                     placeCodesCache = placeCodes
                 }
         })
+    }
+
+    override fun addPlace(code: Code) {
+        // Invoked from the AddPlaceDialog
+        codeViewModel.insert(code)
     }
 
     private fun setUpMenu() {

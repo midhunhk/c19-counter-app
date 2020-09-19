@@ -20,7 +20,8 @@
     <string name="url_privacy_policy" translatable="false">https://github.com/midhunhk/c19-counter-app/wiki/Privacy-Policy</string>
 
     <string name="str_add_place_country">Select Country</string>
-    <string name="str_add_place_state">Select State(India)</string>
+    <string name="str_add_place_state">Select Indian State</string>
     <string name="str_add_place_or">Or</string>
     <string name="str_add_place_add">Add</string>
+    <string name="str_add_place_title">Add a Place</string>
 </resources>

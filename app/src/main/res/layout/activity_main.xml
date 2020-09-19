@@ -29,8 +29,10 @@
             <ImageButton
                 android:id="@+id/addIcon"
                 android:src="@drawable/baseline_add_white_18dp"
+                android:background="@null"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/str_blank" />
 
             <TextView
                 android:id="@+id/textView3"
