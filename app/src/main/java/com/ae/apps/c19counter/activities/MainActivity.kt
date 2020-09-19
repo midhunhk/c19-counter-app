@@ -29,7 +29,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ae.apps.c19counter.R
@@ -63,6 +62,15 @@ class MainActivity : AppCompatActivity(), SummaryReader {
         setUpPullToRefresh()
         setUpMenu()
         initViewModel()
+        initUI()
+    }
+
+    private fun initUI(){
+        addIcon.setOnClickListener {
+            val dialog = AddPlaceDialog.getInstance()
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.show(dialog)
+        }
     }
 
     private fun initViewModel() {
@@ -84,7 +92,7 @@ class MainActivity : AppCompatActivity(), SummaryReader {
                     DialogUtils.showCustomViewDialog(
                         this@MainActivity,
                         layoutInflater,
-                        R.layout.dialog_about,
+                        R.layout.dialog_add_place,
                         R.string.str_about
                     )
                 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey_dark"
+    android:background="@color/almost_black"
     android:orientation="vertical"
     tools:context=".activities.MainActivity">
 
@@ -26,6 +26,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageButton
+                android:id="@+id/addIcon"
+                android:src="@drawable/baseline_add_white_18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
@@ -44,7 +50,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/unit_s"
-            android:text="@string/str_updating"
+            android:text="@string/str_blank"
             android:textColor="@color/off_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +89,7 @@
                 android:drawablePadding="@dimen/unit_s"
                 android:gravity="center_horizontal"
                 android:text="@string/str_no_results"
-                android:textColor="@color/black"
+                android:textColor="@color/off_white"
                 android:visibility="visible"
                 app:drawableTopCompat="@drawable/app_icon" />
 

@@ -24,26 +24,37 @@
 
 package com.ae.apps.c19counter.activities
 
-import android.app.AlertDialog
+import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.ae.apps.c19counter.R
 
-class AboutDialog : DialogFragment() {
+// https://www.mysamplecode.com/2012/03/android-spinner-arrayadapter.html
+// https://stackoverflow.com/questions/51916726/where-to-put-viewmodel-observers-in-a-dialogfragment
+class AddPlaceDialog : DialogFragment() {
+
+    companion object {
+        fun getInstance() = AddPlaceDialog()
+    }
+
+/*    @SuppressLint("InflateParams")
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.dialog_add_place, null)
+    }*/
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val inflater = activity?.layoutInflater
-        if(null != inflater) {
-            val dialogView = inflater.inflate(R.layout.dialog_about, null)
-
-            val builder = AlertDialog.Builder(activity)
-            builder.setTitle(R.string.str_about)
-            builder.setNeutralButton(android.R.string.ok, DialogInterface.OnClickListener { dialog, _ ->  dialog.dismiss() })
-            builder.setView(dialogView)
-            return builder.create()
-        }
-        return super.onCreateDialog(savedInstanceState)
+        val view = layoutInflater.inflate(R.layout.dialog_add_place, null)
+        return AlertDialog.Builder(requireActivity())
+            .setView(view)
+            .create()
     }
 }
