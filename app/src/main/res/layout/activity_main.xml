@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/almost_black"
+    android:background="@color/grey_dark"
     android:orientation="vertical"
     tools:context=".activities.MainActivity">
 
@@ -12,7 +12,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple_dark"
+        android:background="?attr/colorSecondaryVariant"
         android:orientation="vertical"
         android:paddingTop="@dimen/unit_l">
 

@@ -25,9 +25,9 @@
     </style>
 
     <style name="Base.Theme.MaterialTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:statusBarColor" tools:ignore="NewApi">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:ignore="NewApi">?attr/colorSecondaryVariant</item>
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
-        <item name="android:navigationBarColor" tools:ignore="NewApi">@color/purple_dark</item>
+        <item name="android:navigationBarColor" tools:ignore="NewApi">?attr/colorSecondaryVariant</item>
         <item name="android:spinnerStyle">@style/spinnerStyle</item>
     </style>
 

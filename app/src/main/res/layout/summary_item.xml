@@ -47,6 +47,7 @@
         android:layout_marginTop="@dimen/unit_l"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_card_style"
+        android:backgroundTint="@color/blue_middle"
         android:orientation="vertical"
         android:paddingTop="@dimen/unit_m"
         android:paddingBottom="@dimen/unit_m"

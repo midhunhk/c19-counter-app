@@ -37,7 +37,7 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SummaryListAdapter(var data: List<Summary>, val listener: SummaryConsumer) :
+class SummaryListAdapter(var data: List<Summary>, private val listener: SummaryConsumer) :
     RecyclerView.Adapter<SummaryListAdapter.SummaryViewHolder>() {
 
     companion object {
@@ -57,7 +57,7 @@ class SummaryListAdapter(var data: List<Summary>, val listener: SummaryConsumer)
     }
 
     private fun formatUpdatedAt(updatedAt:String): String {
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("dd-MMM-yyyy HH:mm", Locale.getDefault())
         dateFormat.timeZone = TIMEZONE
         return dateFormat.format( DATE_FORMAT_IN.parse(updatedAt)!! )
     }
@@ -83,7 +83,7 @@ class SummaryListAdapter(var data: List<Summary>, val listener: SummaryConsumer)
         )
     }
 
-    class SummaryViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
+    class SummaryViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val placeCode = view.textCountryOrState!!
         val updatedAt = view.textLastUpdated!!
         val confirmedToday = view.textConfirmedToday!!
