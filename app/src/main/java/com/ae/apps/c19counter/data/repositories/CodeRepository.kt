@@ -31,11 +31,11 @@ import com.ae.apps.c19counter.data.dao.CodeDao
 import com.ae.apps.c19counter.data.models.Code
 import org.jetbrains.anko.doAsync
 
-class CodeRepository (application: Application) {
+class CodeRepository(application: Application) {
 
-    private var codeDao:CodeDao
+    private var codeDao: CodeDao
 
-    private var allCodes :LiveData< List<Code>>
+    private var allCodes: LiveData<List<Code>>
 
     init {
         val database = AppDatabase.getInstance(
@@ -47,7 +47,11 @@ class CodeRepository (application: Application) {
 
     fun insertCode(code: Code) {
         doAsync {
-            codeDao.insert(code)
+            val existingCode = codeDao.findByCode(code.code)
+            // Do not allow duplicates to be inserted into the database
+            if (null == existingCode) {
+                codeDao.insert(code)
+            }
         }
     }
 
@@ -58,7 +62,5 @@ class CodeRepository (application: Application) {
     }
 
     fun getAllCodes() = codeDao.getAll()
-
-    fun findCodeByValue(code:String) = codeDao.findByCode(code)
 
 }

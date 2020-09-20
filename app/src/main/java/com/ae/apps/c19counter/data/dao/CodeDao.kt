@@ -37,7 +37,7 @@ interface CodeDao {
     fun getAll(): LiveData<List<Code>>
 
     @Query("select * from code where place_code = :code")
-    fun findByCode(code:String): Code
+    fun findByCode(code:String): Code?
 
     @Delete
     fun delete(code:Code)

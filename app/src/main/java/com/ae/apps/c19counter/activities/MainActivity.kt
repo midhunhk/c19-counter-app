@@ -29,6 +29,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ae.apps.c19counter.R
@@ -53,6 +54,7 @@ class MainActivity : AppCompatActivity(), SummaryConsumer {
     private var placeCodesCache: List<Code>? = null
     private val responseList = mutableListOf<Summary>()
     private var removedCode:Code? = null
+    private var addedCode:Code? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +70,7 @@ class MainActivity : AppCompatActivity(), SummaryConsumer {
     private fun initUI(){
         addIcon.setOnClickListener {
             val dialog = AddPlaceDialog.getInstance()
-            dialog.show(supportFragmentManager, "addPlace")
+            dialog.show(supportFragmentManager, "add_place")
         }
     }
 
@@ -76,10 +78,7 @@ class MainActivity : AppCompatActivity(), SummaryConsumer {
         codeViewModel.getPlaceCodes().observe(this, {
             placeCodes ->
                 run {
-                    // Skip making the webservice call if data change is due to a delete operation
-                    if(removedCode == null) {
-                        refreshData(placeCodes)
-                    }
+                    refreshData(placeCodes, true)
                     placeCodesCache = placeCodes
                 }
         })
@@ -87,16 +86,13 @@ class MainActivity : AppCompatActivity(), SummaryConsumer {
 
     override fun addPlace(code: Code) {
         // Invoked from the AddPlaceDialog
+        addedCode = code
         codeViewModel.insert(code)
     }
 
     override fun removePlace(code: Code) {
         removedCode = code
         codeViewModel.delete(code)
-        val existingItem = responseList.find { it.summaryCode.code == code.code }
-        responseList.removeAt( responseList.indexOf(existingItem) )
-        viewAdapter.setItems(responseList)
-        removedCode = null
     }
 
     private fun setUpMenu() {
@@ -107,7 +103,7 @@ class MainActivity : AppCompatActivity(), SummaryConsumer {
                     DialogUtils.showCustomViewDialog(
                         this@MainActivity,
                         layoutInflater,
-                        R.layout.dialog_add_place,
+                        R.layout.dialog_about,
                         R.string.str_about
                     )
                 }
@@ -150,7 +146,32 @@ class MainActivity : AppCompatActivity(), SummaryConsumer {
         }
     }
 
-    private fun refreshData(placeCodes:List<Code>) {
+    /**
+     * This is not pretty, but trying to optimize the webservice calls by making them only when required
+     *
+     */
+    private fun refreshData(placeCodes:List<Code>, fromViewModel:Boolean = false) {
+        if(fromViewModel){
+            if(placeCodesCache == null){
+                retrieveSummaryIfListNotEmpty(placeCodes)
+            } else if(placeCodesCache!!.size > placeCodes.size && removedCode != null){
+                // An Item has been removed and it should be removedCode
+                // Remove it from the responseList used to render the RecyclerView
+                val existingItem = responseList.find { it.summaryCode.code == removedCode!!.code }
+                responseList.removeAt( responseList.indexOf(existingItem) )
+                viewAdapter.setItems(responseList)
+                removedCode = null
+            } else if(placeCodesCache!!.size < placeCodes.size && addedCode != null) {
+                // Make the webservice call for the new item alone
+                retrieveSummaryIfListNotEmpty(listOf(addedCode!!))
+                addedCode = null
+            }
+        } else {
+            retrieveSummaryIfListNotEmpty(placeCodes)
+        }
+    }
+
+    private fun retrieveSummaryIfListNotEmpty(placeCodes:List<Code>){
         if(placeCodes.isNotEmpty()) {
             progressbar.visibility = View.VISIBLE
             textUpdatedAt.text = getString(R.string.str_updating)
