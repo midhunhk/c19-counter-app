@@ -40,7 +40,7 @@ class SummaryCounter {
         fun getInstance() = SummaryCounter()
     }
 
-    fun retrieveSummary(sources: List<Code>, caller: SummaryReader) {
+    fun retrieveSummary(sources: List<Code>, caller: SummaryConsumer) {
         val service = NetworkService.newInstance()
 
         doAsync {
@@ -52,6 +52,7 @@ class SummaryCounter {
                     SummaryType.COUNTRY -> COUNTRY_SUMMARY_URL
                 }
                 val webResponse = service.doGetRequest(url + it.code)
+                //val webResponse = "{\"countryName\":\"India\",\"countryCode\":\"IN\",\"updatedAt\":\"2020-09-20T04:32:11.000Z\",\"confirmedToday\":0,\"deceasedToday\":0,\"recoveredToday\":0,\"confirmedTotal\":5214677,\"deceasedTotal\":84372,\"recoveredTotal\":4112551}"
                 val jsonObject = JSONObject(webResponse!!)
 
                 val summaryResponse = parseWebResponse(it, jsonObject)

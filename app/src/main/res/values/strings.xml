@@ -16,6 +16,9 @@
     <string name="str_about">About</string>
     <string name="str_about_message">Data sourced from Third Party services and not guaranteed to be accurate.</string>
 
+    <string name="btn_description_add_place">Add Place</string>
+    <string name="btn_description_delete_place">Remove Place</string>
+
     <string name="str_privacy_policy">Privacy Policy</string>
     <string name="url_privacy_policy" translatable="false">https://github.com/midhunhk/c19-counter-app/wiki/Privacy-Policy</string>
 

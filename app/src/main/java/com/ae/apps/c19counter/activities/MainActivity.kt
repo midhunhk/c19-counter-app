@@ -33,16 +33,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ae.apps.c19counter.R
 import com.ae.apps.c19counter.adapters.SummaryListAdapter
+import com.ae.apps.c19counter.data.business.SummaryConsumer
 import com.ae.apps.c19counter.data.business.SummaryCounter
-import com.ae.apps.c19counter.data.business.SummaryReader
-import com.ae.apps.c19counter.data.models.CODE_INDIA
 import com.ae.apps.c19counter.data.models.Code
 import com.ae.apps.c19counter.data.models.Summary
 import com.ae.apps.c19counter.data.viemodel.CodeViewModel
 import com.ae.apps.lib.common.utils.DialogUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), SummaryReader, AddPlaceDialogCallback {
+class MainActivity : AppCompatActivity(), SummaryConsumer {
 
     private val summaryCounter: SummaryCounter by lazy { SummaryCounter.getInstance() }
 
@@ -53,6 +52,7 @@ class MainActivity : AppCompatActivity(), SummaryReader, AddPlaceDialogCallback 
 
     private var placeCodesCache: List<Code>? = null
     private val responseList = mutableListOf<Summary>()
+    private var removedCode:Code? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +76,10 @@ class MainActivity : AppCompatActivity(), SummaryReader, AddPlaceDialogCallback 
         codeViewModel.getPlaceCodes().observe(this, {
             placeCodes ->
                 run {
-                    refreshData(placeCodes)
+                    // Skip making the webservice call if data change is due to a delete operation
+                    if(removedCode == null) {
+                        refreshData(placeCodes)
+                    }
                     placeCodesCache = placeCodes
                 }
         })
@@ -85,6 +88,15 @@ class MainActivity : AppCompatActivity(), SummaryReader, AddPlaceDialogCallback 
     override fun addPlace(code: Code) {
         // Invoked from the AddPlaceDialog
         codeViewModel.insert(code)
+    }
+
+    override fun removePlace(code: Code) {
+        removedCode = code
+        codeViewModel.delete(code)
+        val existingItem = responseList.find { it.summaryCode.code == code.code }
+        responseList.removeAt( responseList.indexOf(existingItem) )
+        viewAdapter.setItems(responseList)
+        removedCode = null
     }
 
     private fun setUpMenu() {
@@ -111,7 +123,7 @@ class MainActivity : AppCompatActivity(), SummaryReader, AddPlaceDialogCallback 
 
     private fun setUpRecyclerView() {
         viewManager = LinearLayoutManager(this)
-        viewAdapter = SummaryListAdapter(emptyList())
+        viewAdapter = SummaryListAdapter(emptyList(), this)
 
         recyclerView = list.apply {
             // use this setting to improve performance if you know that changes
@@ -161,7 +173,7 @@ class MainActivity : AppCompatActivity(), SummaryReader, AddPlaceDialogCallback 
             responseList[index] = summary
         }
         viewAdapter.setItems(responseList)
-        recyclerView.adapter = viewAdapter
+        //recyclerView.adapter = viewAdapter
         recyclerView.scheduleLayoutAnimation()
     }
 

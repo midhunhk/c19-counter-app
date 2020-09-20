@@ -37,6 +37,7 @@ import android.widget.RelativeLayout
 import android.widget.Spinner
 import androidx.fragment.app.DialogFragment
 import com.ae.apps.c19counter.R
+import com.ae.apps.c19counter.data.business.SummaryConsumer
 import com.ae.apps.c19counter.data.models.CODE_INDIA
 import com.ae.apps.c19counter.data.models.Code
 import com.ae.apps.c19counter.data.models.SummaryType
@@ -45,7 +46,7 @@ import com.ae.apps.c19counter.data.models.SummaryType
 // https://stackoverflow.com/questions/51916726/where-to-put-viewmodel-observers-in-a-dialogfragment
 class AddPlaceDialog : DialogFragment() {
 
-    private lateinit var callback: AddPlaceDialogCallback
+    private lateinit var callback: SummaryConsumer
 
     companion object {
         fun getInstance() = AddPlaceDialog()
@@ -53,7 +54,7 @@ class AddPlaceDialog : DialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        callback = context as AddPlaceDialogCallback
+        callback = context as SummaryConsumer
     }
 
     @SuppressLint("InflateParams")
@@ -106,13 +107,13 @@ class AddPlaceDialog : DialogFragment() {
                 val placeType = SummaryType.STATE
                 val placeCode =
                     resources.getStringArray(R.array.india_states_codes_array)[spinnerState.selectedItemPosition]
-                code = Code(placeCode, placeType)
+                code = Code(placeCode, placeType, spinnerState.selectedItem.toString())
             }
             if (radioCountry.isChecked) {
                 val placeType = SummaryType.COUNTRY
                 val placeCode =
                     resources.getStringArray(R.array.country_codes_array)[spinnerCountry.selectedItemPosition]
-                code = Code(placeCode, placeType)
+                code = Code(placeCode, placeType, spinnerCountry.selectedItem.toString())
             }
 
             callback.addPlace(code)
@@ -127,8 +128,4 @@ class AddPlaceDialog : DialogFragment() {
         }*/
         handleUi(view)
     }
-}
-
-interface AddPlaceDialogCallback {
-    fun addPlace(code: Code)
 }

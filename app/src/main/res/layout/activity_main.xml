@@ -32,7 +32,7 @@
                 android:background="@null"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/str_blank" />
+                android:contentDescription="@string/btn_description_add_place" />
 
             <TextView
                 android:id="@+id/textView3"

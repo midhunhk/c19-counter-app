@@ -24,10 +24,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/str_country_india"
-        android:textColor="@color/off_white"
-        android:textSize="@dimen/text_size_subtitle"
+        android:textColor="@color/grey_dark"
+        android:textSize="@dimen/text_size_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textCountryOrState" />
+
+    <ImageButton
+        android:id="@+id/btnRemoveItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:contentDescription="@string/btn_description_delete_place"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_clear_white_18dp" />
 
     <!-- Confirmed Card -->
     <LinearLayout
@@ -38,13 +48,13 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_card_style"
         android:orientation="vertical"
-        android:paddingTop="@dimen/unit_l"
-        android:paddingBottom="@dimen/unit_l"
+        android:paddingTop="@dimen/unit_m"
+        android:paddingBottom="@dimen/unit_m"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/recoveredCard"
         app:layout_constraintHorizontal_weight=".3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textCountryOrState">
+        app:layout_constraintTop_toBottomOf="@+id/textLastUpdated">
 
         <TextView
             android:layout_width="match_parent"
@@ -126,13 +136,13 @@
         android:background="@drawable/rounded_card_style"
         android:backgroundTint="@color/blue_dark"
         android:orientation="vertical"
-        android:paddingTop="@dimen/unit_l"
-        android:paddingBottom="@dimen/unit_l"
+        android:paddingTop="@dimen/unit_m"
+        android:paddingBottom="@dimen/unit_m"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/deceasedCard"
         app:layout_constraintHorizontal_weight=".3"
         app:layout_constraintStart_toEndOf="@+id/confirmedCard"
-        app:layout_constraintTop_toBottomOf="@+id/textCountryOrState">
+        app:layout_constraintTop_toBottomOf="@+id/textLastUpdated">
 
         <TextView
             android:layout_width="match_parent"
@@ -212,13 +222,13 @@
         android:background="@drawable/rounded_card_style"
         android:backgroundTint="@color/red_dark"
         android:orientation="vertical"
-        android:paddingTop="@dimen/unit_l"
-        android:paddingBottom="@dimen/unit_l"
+        android:paddingTop="@dimen/unit_m"
+        android:paddingBottom="@dimen/unit_m"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight=".3"
         app:layout_constraintStart_toEndOf="@+id/recoveredCard"
-        app:layout_constraintTop_toBottomOf="@+id/textCountryOrState">
+        app:layout_constraintTop_toBottomOf="@+id/textLastUpdated">
 
         <TextView
             android:layout_width="match_parent"
@@ -286,5 +296,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
+
     <!-- End Deceased Card -->
 </androidx.constraintlayout.widget.ConstraintLayout>

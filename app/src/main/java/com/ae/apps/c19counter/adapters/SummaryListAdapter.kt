@@ -27,15 +27,17 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.recyclerview.widget.RecyclerView
 import com.ae.apps.c19counter.R
+import com.ae.apps.c19counter.data.business.SummaryConsumer
 import com.ae.apps.c19counter.data.models.Summary
 import kotlinx.android.synthetic.main.summary_item.view.*
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SummaryListAdapter(var data: List<Summary>) :
+class SummaryListAdapter(var data: List<Summary>, val listener: SummaryConsumer) :
     RecyclerView.Adapter<SummaryListAdapter.SummaryViewHolder>() {
 
     companion object {
@@ -62,7 +64,7 @@ class SummaryListAdapter(var data: List<Summary>) :
 
     override fun onBindViewHolder(holder: SummaryViewHolder, position: Int) {
         val summaryItem = data[position]
-        holder.placeCode.text = summaryItem.summaryCode.code
+        holder.placeCode.text = summaryItem.summaryCode.name ?: summaryItem.summaryCode.code
         holder.updatedAt.text = formatUpdatedAt(summaryItem.updatedAt)
         holder.confirmedToday.text = NUMBER_FORMAT.format(summaryItem.todayCount.confirmed)
         holder.confirmedTotal.text = NUMBER_FORMAT.format(summaryItem.totalCount.confirmed)
@@ -70,6 +72,7 @@ class SummaryListAdapter(var data: List<Summary>) :
         holder.recoveredTotal.text = NUMBER_FORMAT.format(summaryItem.totalCount.recovered)
         holder.deceasedToday.text = NUMBER_FORMAT.format(summaryItem.todayCount.deceased)
         holder.deceasedTotal.text = NUMBER_FORMAT.format(summaryItem.totalCount.deceased)
+        holder.btnRemove.setOnClickListener { listener.removePlace(summaryItem.summaryCode) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SummaryViewHolder {
@@ -89,5 +92,6 @@ class SummaryListAdapter(var data: List<Summary>) :
         val recoveredTotal = view.textRecoveredTotal!!
         val deceasedToday = view.textDeceasedToday!!
         val deceasedTotal = view.textDeceasedTotal!!
+        val btnRemove: ImageButton = view.btnRemoveItem
     }
 }
