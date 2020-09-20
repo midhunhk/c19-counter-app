@@ -26,10 +26,14 @@
     <string-array name="india_states_names_array">
         <item>Kerala</item>
         <item>Tamil Nadu</item>
+        <item>Andhra Pradesh</item>
+        <item>Bihar</item>
     </string-array>
 
     <string-array name="india_states_codes_array">
         <item>KL</item>
         <item>TN</item>
+        <item>AP</item>
+        <item>BR</item>
     </string-array>
 </resources>
