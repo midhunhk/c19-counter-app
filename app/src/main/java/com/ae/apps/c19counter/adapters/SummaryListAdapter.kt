@@ -57,7 +57,7 @@ class SummaryListAdapter(var data: List<Summary>, private val listener: SummaryC
     }
 
     private fun formatUpdatedAt(updatedAt:String): String {
-        val dateFormat = SimpleDateFormat("dd-MMM-yyyy HH:mm", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("dd MMM yyyy HH:mm", Locale.getDefault())
         dateFormat.timeZone = TIMEZONE
         return dateFormat.format( DATE_FORMAT_IN.parse(updatedAt)!! )
     }

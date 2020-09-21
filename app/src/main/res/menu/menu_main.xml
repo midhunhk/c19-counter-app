@@ -36,5 +36,5 @@
 
     <item
         android:id="@+id/menu_open_source"
-        android:title="@string/str_privacy_policy" />
+        android:title="@string/str_open_source" />
 </menu>
