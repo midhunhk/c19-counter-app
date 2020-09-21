@@ -14,13 +14,15 @@
     <string name="str_blank"> </string>
     <string name="str_no_results">Add a Place to begin</string>
     <string name="str_about">About</string>
-    <string name="str_about_message">Data sourced from Third Party services and not guaranteed to be accurate or up to date.</string>
+    <string name="str_about_message">This is an informational app with data sourced from Third Party services and not guaranteed to be accurate or up to date.</string>
 
     <string name="btn_description_add_place">Add Place</string>
     <string name="btn_description_delete_place">Remove Place</string>
 
     <string name="str_privacy_policy">Privacy Policy</string>
+    <string name="str_open_source">Open Source</string>
     <string name="url_privacy_policy" translatable="false">https://github.com/midhunhk/c19-counter-app/wiki/Privacy-Policy</string>
+    <string name="url_github_project" translatable="false">https://github.com/midhunhk/c19-counter-app</string>
 
     <string name="str_add_place_country">Select Country</string>
     <string name="str_add_place_state">Select Indian State</string>

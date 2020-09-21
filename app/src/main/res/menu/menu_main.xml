@@ -29,7 +29,12 @@
     <item
         android:id="@+id/menu_about"
         android:title="@string/str_about" />
+
     <item
         android:id="@+id/menu_privacy"
+        android:title="@string/str_privacy_policy" />
+
+    <item
+        android:id="@+id/menu_open_source"
         android:title="@string/str_privacy_policy" />
 </menu>

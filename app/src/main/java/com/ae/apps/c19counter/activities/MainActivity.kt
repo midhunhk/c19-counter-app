@@ -112,6 +112,11 @@ class MainActivity : AppCompatActivity(), SummaryConsumer {
                     intent.data = Uri.parse(getString(R.string.url_privacy_policy))
                     startActivity(intent)
                 }
+                R.id.menu_open_source -> {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse(getString(R.string.url_github_project))
+                    startActivity(intent)
+                }
             }
             true
         }
