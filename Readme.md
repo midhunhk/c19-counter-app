@@ -1,8 +1,7 @@
 <img align="right" height="100" src="https://raw.githubusercontent.com/midhunhk/artwork/master/C19Counter/export/app_icon.png" />
 
 # c19-counter-app
-[![](https://img.shields.io/badge/version-v1.0.0.svg)]() |
-[Releases](https://github.com/midhunhk/c19-counter-app/releases)
+[![Release](https://img.shields.io/github/release/midhunhk/c19-counter-app.svg)](https://github.com/midhunhk/c19-counter-app/releases)
 
 An informational android app to get C-19 status for the places you want to check easily on your mobile device.
 This app presents the data as is from third party sources without any enrichment.
