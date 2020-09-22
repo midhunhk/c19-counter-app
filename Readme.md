@@ -15,6 +15,15 @@ which sources the results from third party services
 ## Screenshots
 <img alt="Home" src="https://github.com/midhunhk/artwork/blob/master/C19Counter/export/screen-shots/Screenshot_1600612808.png?raw=true" width="200"/> <img alt="Add a Place" src="https://raw.githubusercontent.com/midhunhk/artwork/master/C19Counter/export/screen-shots/Screenshot_1600612815.png" width="200"/> <img alt="Results" src="https://raw.githubusercontent.com/midhunhk/artwork/master/C19Counter/export/screen-shots/Screenshot_1600612834.png" width="200"/> <img alt="About" src="https://raw.githubusercontent.com/midhunhk/artwork/master/C19Counter/export/screen-shots/Screenshot_1600612841.png" width="200"/>
 
+## Learnings
+ - Integration with web API
+ - Improve lib-aeapps
+ - Latest ViewModel and LiveData imolementation
+ - Room database
+ - Android bundle archival mode
+ - Create custom full screen dialog fragments
+ - Custom toolbar interactions
+
 ## Not available on the Play Store
 This app is not available on the Google Play Store. Please find the signed apk from the releases page.
 We believe this app was rejected after Google Play review as the data are sourced from third party sources and they want to prevent
