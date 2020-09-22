@@ -18,7 +18,11 @@ which sources the results from third party services
 ## Not available on the Play Store
 This app is not available on the Google Play Store. Please find the signed apk from the releases page.
 We believe this app was rejected after Google Play review as the data are sourced from third party sources and they want to prevent
-in consistent information from being available to the public.
+in-consistent information from being available to the public.
+
+## How to use
+Only a few Countries and Indian states have been added to the dropdown menu in the current state. If you need to view the data for other places, 
+update the "countries.xml" and "india_states.xml" files, with the place names and the two letter code for each.
 
 ## License
 MIT License
