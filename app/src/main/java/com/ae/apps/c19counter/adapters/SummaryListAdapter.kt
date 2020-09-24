@@ -54,18 +54,20 @@ class SummaryListAdapter(var data: MutableList<Summary>, private val listener: S
     }
 
     fun addItem(item: Summary) {
-        data.add(item)
-        notifyDataSetChanged()
+        data.add(item).also {
+            notifyItemInserted( itemCount - 1)
+        }
     }
 
     fun updateItem(item: Summary, position: Int) {
         data[position] = item
-        notifyDataSetChanged()
+        notifyItemChanged(position, item)
     }
 
     fun removeItem(position: Int) {
-        data.removeAt(position)
-        notifyDataSetChanged()
+        data.removeAt(position).also {
+            notifyItemRemoved(position)
+        }
     }
 
     override fun getItemCount(): Int {

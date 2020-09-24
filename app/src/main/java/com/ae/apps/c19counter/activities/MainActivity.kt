@@ -155,7 +155,6 @@ class MainActivity : AppCompatActivity(), SummaryConsumer {
     /**
      * This is not pretty, but trying to optimize the webservice calls by making them only when required
      * instead of whenever there is a change in model
-     *
      */
     private fun refreshData(placeCodes:List<Code>, fromViewModel:Boolean = false) {
         if(fromViewModel){
@@ -203,7 +202,7 @@ class MainActivity : AppCompatActivity(), SummaryConsumer {
             responseList[index] = summary
             viewAdapter.updateItem(summary, index)
         }
-        recyclerView.scheduleLayoutAnimation()
+        //recyclerView.scheduleLayoutAnimation()
     }
 
 }

@@ -38,11 +38,14 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inika"
                 android:gravity="center"
                 android:text="@string/app_name"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_title"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="38dp"
+                tools:layout_editor_absoluteY="14dp" />
         </androidx.appcompat.widget.Toolbar>
 
 
@@ -98,7 +101,7 @@
             <com.ae.apps.lib.custom.views.EmptyRecyclerView
                 android:id="@+id/list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layoutAnimation="@anim/layout_animation"
                 android:paddingTop="@dimen/unit_m"
                 android:paddingBottom="@dimen/unit_m"
