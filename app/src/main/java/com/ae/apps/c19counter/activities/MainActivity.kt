@@ -123,8 +123,9 @@ class MainActivity : AppCompatActivity(), SummaryConsumer {
     }
 
     private fun setUpRecyclerView() {
+        val emptyList = mutableListOf<Summary>()
         viewManager = LinearLayoutManager(this)
-        viewAdapter = SummaryListAdapter(emptyList(), this)
+        viewAdapter = SummaryListAdapter(emptyList, this)
 
         recyclerView = list.apply {
             // use this setting to improve performance if you know that changes
@@ -164,8 +165,9 @@ class MainActivity : AppCompatActivity(), SummaryConsumer {
                 // An Item has been removed and it should be removedCode
                 // Remove it from the responseList used to render the RecyclerView
                 val existingItem = responseList.find { it.summaryCode.code == removedCode!!.code }
-                responseList.removeAt( responseList.indexOf(existingItem) )
-                viewAdapter.setItems(responseList)
+                val position = responseList.indexOf(existingItem)
+                responseList.removeAt( position )
+                viewAdapter.removeItem(position)
                 removedCode = null
             } else if(placeCodesCache!!.size < placeCodes.size && addedCode != null) {
                 // Make the webservice call for the new item alone
@@ -195,12 +197,12 @@ class MainActivity : AppCompatActivity(), SummaryConsumer {
         val existingItems = responseList.filter { it.summaryCode.code == summary.summaryCode.code }
         if (existingItems.isEmpty()) {
             responseList.add(summary)
+            viewAdapter.addItem(summary)
         } else {
             val index = responseList.indexOf(existingItems[0])
             responseList[index] = summary
+            viewAdapter.updateItem(summary, index)
         }
-        viewAdapter.setItems(responseList)
-        //recyclerView.adapter = viewAdapter
         recyclerView.scheduleLayoutAnimation()
     }
 

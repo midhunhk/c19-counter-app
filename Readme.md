@@ -18,11 +18,12 @@ which sources the results from third party services
 ## Learnings
  - Integration with web API
  - Improve lib-aeapps
- - Latest ViewModel and LiveData imolementation
+ - Latest ViewModel and LiveData implementation
  - Room database
  - Android bundle archival mode
  - Create custom full screen dialog fragments
  - Custom toolbar interactions
+ - Swipe to Pull Refresh (Surprisingly easy to implement)
 
 ## Not available on the Play Store
 This app is not available on the Google Play Store. Please find the signed apk from the releases page.

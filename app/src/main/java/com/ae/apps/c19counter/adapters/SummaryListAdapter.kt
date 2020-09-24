@@ -37,18 +37,34 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SummaryListAdapter(var data: List<Summary>, private val listener: SummaryConsumer) :
+class SummaryListAdapter(var data: MutableList<Summary>, private val listener: SummaryConsumer) :
     RecyclerView.Adapter<SummaryListAdapter.SummaryViewHolder>() {
 
     companion object {
         val TIMEZONE: TimeZone = Calendar.getInstance().timeZone
         val NUMBER_FORMAT = DecimalFormat("#,###,###")
+
         @SuppressLint("ConstantLocale")
         val DATE_FORMAT_IN = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
     }
 
-    fun setItems(items: List<Summary>){
-        data = items
+    fun setItems(items: List<Summary>) {
+        data = items.toMutableList()
+        notifyDataSetChanged()
+    }
+
+    fun addItem(item: Summary) {
+        data.add(item)
+        notifyDataSetChanged()
+    }
+
+    fun updateItem(item: Summary, position: Int) {
+        data[position] = item
+        notifyDataSetChanged()
+    }
+
+    fun removeItem(position: Int) {
+        data.removeAt(position)
         notifyDataSetChanged()
     }
 
@@ -56,10 +72,10 @@ class SummaryListAdapter(var data: List<Summary>, private val listener: SummaryC
         return data.size
     }
 
-    private fun formatUpdatedAt(updatedAt:String): String {
+    private fun formatUpdatedAt(updatedAt: String): String {
         val dateFormat = SimpleDateFormat("dd MMM yyyy HH:mm", Locale.getDefault())
         dateFormat.timeZone = TIMEZONE
-        return dateFormat.format( DATE_FORMAT_IN.parse(updatedAt)!! )
+        return dateFormat.format(DATE_FORMAT_IN.parse(updatedAt)!!)
     }
 
     override fun onBindViewHolder(holder: SummaryViewHolder, position: Int) {
@@ -83,7 +99,7 @@ class SummaryListAdapter(var data: List<Summary>, private val listener: SummaryC
         )
     }
 
-    class SummaryViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    class SummaryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val placeCode = view.textCountryOrState!!
         val updatedAt = view.textLastUpdated!!
         val confirmedToday = view.textConfirmedToday!!
