@@ -37,7 +37,8 @@
         android:contentDescription="@string/btn_description_delete_place"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_remove" />
+        android:tint="@color/color_silver"
+        app:srcCompat="@drawable/ic_close" />
 
     <!-- Confirmed Card -->
     <LinearLayout
