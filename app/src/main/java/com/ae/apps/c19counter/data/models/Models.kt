@@ -31,7 +31,7 @@ import androidx.room.TypeConverter
 
 // Enums
 enum class SummaryType {
-    COUNTRY, STATE
+    COUNTRY, STATE, UNKNOWN
 }
 
 // Data Classes
@@ -67,3 +67,6 @@ class Converters {
         return summaryType.toString()
     }
 }
+
+val EMPTY_CODE = Code("UNK", SummaryType.UNKNOWN)
+val EMPTY_SUMMARY = Summary(EMPTY_CODE)

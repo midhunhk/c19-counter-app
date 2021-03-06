@@ -38,6 +38,9 @@ android {
             outputFileName = "$app_build_name-${variant.name}-${variant.versionName}-build-${variant.versionCode}.apk"
         }
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {

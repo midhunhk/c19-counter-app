@@ -25,14 +25,13 @@ package com.ae.apps.c19counter.data.business
 
 import com.ae.apps.c19counter.data.COUNTRY_SUMMARY_URL
 import com.ae.apps.c19counter.data.STATE_SUMMARY_URL
-import com.ae.apps.c19counter.data.models.Code
-import com.ae.apps.c19counter.data.models.Count
+import com.ae.apps.c19counter.data.models.*
 import com.ae.apps.c19counter.data.models.Summary
-import com.ae.apps.c19counter.data.models.SummaryType
 import com.ae.apps.c19counter.data.services.NetworkService
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import org.json.JSONObject
+import java.lang.Exception
 
 class SummaryCounter {
 
@@ -45,40 +44,55 @@ class SummaryCounter {
 
         doAsync {
             val responseSummaries = mutableListOf<Summary>()
-            sources.forEach {
+            sources.forEach { it ->
+                val errorOccurred = "ERROR OCCURRED"
                 // Collect the endpoint for
                 val url = when (it.type) {
                     SummaryType.STATE -> STATE_SUMMARY_URL
                     SummaryType.COUNTRY -> COUNTRY_SUMMARY_URL
+                    SummaryType.UNKNOWN -> errorOccurred
                 }
-                val webResponse = service.doGetRequest(url + it.code)
-                //val webResponse = "{\"countryName\":\"India\",\"countryCode\":\"IN\",\"updatedAt\":\"2020-09-20T04:32:11.000Z\",\"confirmedToday\":0,\"deceasedToday\":0,\"recoveredToday\":0,\"confirmedTotal\":5214677,\"deceasedTotal\":84372,\"recoveredTotal\":4112551}"
-                val jsonObject = JSONObject(webResponse!!)
+                if (url == errorOccurred) {
+                    uiThread { caller.onRequestError("Error occurred for ${it.toString()}") }
+                } else {
+                    val webResponse = service.doGetRequest(url + it.code)
+                    //val webResponse = "{\"countryName\":\"India\",\"countryCode\":\"IN\",\"updatedAt\":\"2020-09-20T04:32:11.000Z\",\"confirmedToday\":0,\"deceasedToday\":0,\"recoveredToday\":0,\"confirmedTotal\":5214677,\"deceasedTotal\":84372,\"recoveredTotal\":4112551}"
+                    val jsonObject = JSONObject(webResponse!!)
 
-                val summaryResponse = parseWebResponse(it, jsonObject)
-                responseSummaries.add(summaryResponse)
+                    val summaryResponse = parseWebResponse(it, jsonObject)
+                    responseSummaries.add(summaryResponse)
 
-                // Call back the invoker with the result
-                uiThread {
-                    caller.onSummaryRead(summaryResponse)
+                    // Call back the invoker with the result
+                    uiThread {
+                        if(summaryResponse == EMPTY_SUMMARY){
+                            caller.onRequestError("Error occurred for ${it.toString()}")
+                        } else {
+                            caller.onSummaryRead(summaryResponse)
+                        }
+                    }
                 }
             }
         }
     }
 
     private fun parseWebResponse(summaryCode: Code, json: JSONObject): Summary {
-        val updatedAt = json.getString("updatedAt")
-        val todayCount = Count(
-            json.getInt("confirmedToday"),
-            json.getInt("recoveredToday"),
-            json.getInt("deceasedToday")
-        )
-        val totalCount = Count(
-            json.getInt("confirmedTotal"),
-            json.getInt("recoveredTotal"),
-            json.getInt("deceasedTotal")
-        )
-        return Summary(summaryCode, updatedAt, todayCount, totalCount)
+        try {
+            val updatedAt = json.getString("updatedAt")
+            val todayCount = Count(
+                json.getInt("confirmedToday"),
+                json.getInt("recoveredToday"),
+                json.getInt("deceasedToday")
+            )
+            val totalCount = Count(
+                json.getInt("confirmedTotal"),
+                json.getInt("recoveredTotal"),
+                json.getInt("deceasedTotal")
+            )
+            return Summary(summaryCode, updatedAt, todayCount, totalCount)
+        } catch (e: Exception) {
+            return EMPTY_SUMMARY
+        }
+
     }
 
 }

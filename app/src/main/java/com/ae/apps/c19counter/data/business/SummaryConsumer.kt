@@ -22,4 +22,9 @@ interface SummaryConsumer {
      *
      */
     fun removePlace(code: Code)
+
+    /**
+     * Callback when an error occurred while requesting for the data
+     */
+    fun onRequestError(message:String)
 }

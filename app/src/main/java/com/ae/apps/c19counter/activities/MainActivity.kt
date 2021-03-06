@@ -27,9 +27,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ae.apps.c19counter.R
@@ -39,26 +39,27 @@ import com.ae.apps.c19counter.data.business.SummaryCounter
 import com.ae.apps.c19counter.data.models.Code
 import com.ae.apps.c19counter.data.models.Summary
 import com.ae.apps.c19counter.data.viemodel.CodeViewModel
+import com.ae.apps.c19counter.databinding.ActivityMainBinding
 import com.ae.apps.lib.common.utils.DialogUtils
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), SummaryConsumer {
 
     private val summaryCounter: SummaryCounter by lazy { SummaryCounter.getInstance() }
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: SummaryListAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var binding: ActivityMainBinding
     private val codeViewModel: CodeViewModel by viewModels()
 
     private var placeCodesCache: List<Code>? = null
     private val responseList = mutableListOf<Summary>()
-    private var removedCode:Code? = null
-    private var addedCode:Code? = null
+    private var removedCode: Code? = null
+    private var addedCode: Code? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setUpRecyclerView()
         setUpPullToRefresh()
@@ -67,20 +68,20 @@ class MainActivity : AppCompatActivity(), SummaryConsumer {
         initUI()
     }
 
-    private fun initUI(){
-        addIcon.setOnClickListener {
+    private fun initUI() {
+        binding.addIcon.setOnClickListener {
             val dialog = AddPlaceDialog.getInstance()
             dialog.show(supportFragmentManager, "add_place")
         }
     }
 
     private fun initViewModel() {
-        codeViewModel.getPlaceCodes().observe(this, {
-            placeCodes ->
-                run {
-                    refreshData(placeCodes, true)
-                    placeCodesCache = placeCodes
-                }
+
+        codeViewModel.getPlaceCodes().observe(this, { placeCodes ->
+            run {
+                refreshData(placeCodes, true)
+                placeCodesCache = placeCodes
+            }
         })
     }
 
@@ -96,8 +97,8 @@ class MainActivity : AppCompatActivity(), SummaryConsumer {
     }
 
     private fun setUpMenu() {
-        toolbar.inflateMenu(R.menu.menu_main)
-        toolbar.setOnMenuItemClickListener {
+        binding.toolbar.inflateMenu(R.menu.menu_main)
+        binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.menu_about -> {
                     DialogUtils.showCustomViewDialog(
@@ -127,7 +128,7 @@ class MainActivity : AppCompatActivity(), SummaryConsumer {
         viewManager = LinearLayoutManager(this)
         viewAdapter = SummaryListAdapter(emptyList, this)
 
-        recyclerView = list.apply {
+        binding.list.apply {
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
             setHasFixedSize(true)
@@ -139,15 +140,15 @@ class MainActivity : AppCompatActivity(), SummaryConsumer {
             adapter = viewAdapter
 
             // Set the empty view
-            setEmptyView(noResultsView)
+            setEmptyView(binding.noResultsView)
         }
     }
 
     private fun setUpPullToRefresh() {
-        pullToRefresh.setOnRefreshListener {
-            if(null != placeCodesCache) {
+        binding.pullToRefresh.setOnRefreshListener {
+            if (null != placeCodesCache) {
                 refreshData(placeCodesCache!!)
-                pullToRefresh.isRefreshing = false
+                binding.pullToRefresh.isRefreshing = false
             }
         }
     }
@@ -156,19 +157,19 @@ class MainActivity : AppCompatActivity(), SummaryConsumer {
      * This is not pretty, but trying to optimize the webservice calls by making them only when required
      * instead of whenever there is a change in model
      */
-    private fun refreshData(placeCodes:List<Code>, fromViewModel:Boolean = false) {
-        if(fromViewModel){
-            if(placeCodesCache == null){
+    private fun refreshData(placeCodes: List<Code>, fromViewModel: Boolean = false) {
+        if (fromViewModel) {
+            if (placeCodesCache == null) {
                 retrieveSummaryIfListNotEmpty(placeCodes)
-            } else if(placeCodesCache!!.size > placeCodes.size && removedCode != null){
+            } else if (placeCodesCache!!.size > placeCodes.size && removedCode != null) {
                 // An Item has been removed and it should be removedCode
                 // Remove it from the responseList used to render the RecyclerView
                 val existingItem = responseList.find { it.summaryCode.code == removedCode!!.code }
                 val position = responseList.indexOf(existingItem)
-                responseList.removeAt( position )
+                responseList.removeAt(position)
                 viewAdapter.removeItem(position)
                 removedCode = null
-            } else if(placeCodesCache!!.size < placeCodes.size && addedCode != null) {
+            } else if (placeCodesCache!!.size < placeCodes.size && addedCode != null) {
                 // Make the webservice call for the new item alone
                 retrieveSummaryIfListNotEmpty(listOf(addedCode!!))
                 addedCode = null
@@ -178,21 +179,25 @@ class MainActivity : AppCompatActivity(), SummaryConsumer {
         }
     }
 
-    private fun retrieveSummaryIfListNotEmpty(placeCodes:List<Code>){
-        if(placeCodes.isNotEmpty()) {
-            progressbar.visibility = View.VISIBLE
-            textUpdatedAt.text = getString(R.string.str_updating)
+    private fun retrieveSummaryIfListNotEmpty(placeCodes: List<Code>) {
+        if (placeCodes.isNotEmpty()) {
+            binding.progressbar.visibility = View.VISIBLE
+            binding.textUpdatedAt.text = getString(R.string.str_updating)
             summaryCounter.retrieveSummary(placeCodes, this)
         }
     }
 
     override fun onSummaryRead(summary: Summary) {
         updateResponseList(summary)
-        progressbar.visibility = View.INVISIBLE
+        binding.progressbar.visibility = View.INVISIBLE
+    }
+
+    override fun onRequestError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun updateResponseList(summary: Summary) {
-        textUpdatedAt.text = getString(R.string.str_updated)
+        binding.textUpdatedAt.text = getString(R.string.str_updated)
         val existingItems = responseList.filter { it.summaryCode.code == summary.summaryCode.code }
         if (existingItems.isEmpty()) {
             responseList.add(summary)
