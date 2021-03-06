@@ -44,10 +44,10 @@ class SummaryCounter {
 
         doAsync {
             val responseSummaries = mutableListOf<Summary>()
-            sources.forEach { it ->
+            sources.forEach { code ->
                 val errorOccurred = "ERROR OCCURRED"
                 // Collect the endpoint for
-                val url = when (it.type) {
+                val url = when (code.type) {
                     SummaryType.STATE -> STATE_SUMMARY_URL
                     SummaryType.COUNTRY -> COUNTRY_SUMMARY_URL
                     SummaryType.UNKNOWN -> errorOccurred
@@ -55,17 +55,17 @@ class SummaryCounter {
                 if (url == errorOccurred) {
                     uiThread { caller.onRequestError("Error occurred for ${it.toString()}") }
                 } else {
-                    val webResponse = service.doGetRequest(url + it.code)
+                    val webResponse = service.doGetRequest(url + code.code)
                     //val webResponse = "{\"countryName\":\"India\",\"countryCode\":\"IN\",\"updatedAt\":\"2020-09-20T04:32:11.000Z\",\"confirmedToday\":0,\"deceasedToday\":0,\"recoveredToday\":0,\"confirmedTotal\":5214677,\"deceasedTotal\":84372,\"recoveredTotal\":4112551}"
                     val jsonObject = JSONObject(webResponse!!)
 
-                    val summaryResponse = parseWebResponse(it, jsonObject)
+                    val summaryResponse = parseWebResponse(code, jsonObject)
                     responseSummaries.add(summaryResponse)
 
                     // Call back the invoker with the result
                     uiThread {
                         if(summaryResponse == EMPTY_SUMMARY){
-                            caller.onRequestError("Error occurred for ${it.toString()}")
+                            caller.onRequestError("Error occurred for ${code.code}")
                         } else {
                             caller.onSummaryRead(summaryResponse)
                         }
