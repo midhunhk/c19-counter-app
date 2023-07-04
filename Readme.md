@@ -1,4 +1,6 @@
-<img align="right" height="100" src="https://raw.githubusercontent.com/midhunhk/artwork/master/C19Counter/export/app_icon.png" />
+_*This project is not in active development or support*_
+
+<img align="right" height="100" src="https://raw.githubusercontent.com/midhunhk/artwork/master/apps/C19Counter/export/app_icon.png" />
 
 # c19-counter-app
 [![Release](https://img.shields.io/github/release/midhunhk/c19-counter-app.svg)](https://github.com/midhunhk/c19-counter-app/releases)
@@ -13,7 +15,7 @@ https://github.com/midhunhk/c19-web-api
 which sources the results from third party services
 
 ## Screenshots
-<img alt="Home" src="https://github.com/midhunhk/artwork/blob/master/C19Counter/export/screen-shots/Screenshot_1600612808.png?raw=true" width="200"/> <img alt="Add a Place" src="https://raw.githubusercontent.com/midhunhk/artwork/master/C19Counter/export/screen-shots/Screenshot_1600612815.png" width="200"/> <img alt="Results" src="https://raw.githubusercontent.com/midhunhk/artwork/master/C19Counter/export/screen-shots/Screenshot_1600612834.png" width="200"/> <img alt="About" src="https://raw.githubusercontent.com/midhunhk/artwork/master/C19Counter/export/screen-shots/Screenshot_1600612841.png" width="200"/>
+<img alt="Home" src="https://github.com/midhunhk/artwork/blob/master/apps/C19Counter/export/screen-shots/Screenshot_1600612808.png?raw=true" width="200"/> <img alt="Add a Place" src="https://raw.githubusercontent.com/midhunhk/artwork/master/apps/C19Counter/export/screen-shots/Screenshot_1600612815.png" width="200"/> <img alt="Results" src="https://raw.githubusercontent.com/midhunhk/artwork/master/apps/C19Counter/export/screen-shots/Screenshot_1600612834.png" width="200"/> <img alt="About" src="https://raw.githubusercontent.com/midhunhk/artwork/master/apps/C19Counter/export/screen-shots/Screenshot_1600612841.png" width="200"/>
 
 ## Learnings
  - Integration with web API
